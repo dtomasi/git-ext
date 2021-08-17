@@ -18,7 +18,7 @@ echo "detected latest extension version is ${LATEST_VERSION}"
 
 echo "downloading extensions"
 DOWNLOAD_URL="https://github.com/${ORG_NAME}/${REPO_NAME}/releases/download/${LATEST_VERSION}/${ARCHIVE_NAME}"
-curl -sL "${DOWNLOAD_URL}" > "/tmp/${ARCHIVE_NAME}"
+curl -L "${DOWNLOAD_URL}" > "/tmp/${ARCHIVE_NAME}"
 mkdir -p "/tmp/${REPO_NAME}"
 (cd "/tmp/${REPO_NAME}" || exit; tar -xjf "/tmp/${ARCHIVE_NAME}" 'git-*')
 echo "installing extension to /usr/local/bin"
