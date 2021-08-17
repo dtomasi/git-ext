@@ -4,7 +4,7 @@ git-ext contains some useful git extensions
 
 ## Installation
 
-    curl -s https://github.com/dtomasi/git-ext/master/install | sudo bash
+    curl -s https://raw.githubusercontent.com/dtomasi/git-ext/main/install | bash
 
 ## git dirclone
 
