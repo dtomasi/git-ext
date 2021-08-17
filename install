@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
-ORG_NAME=${1:-"dtomasi"}
-REPO_NAME=${2:-"git-ext"}
-ARCHIVE_NAME_PREFIX=${2:-"${REPO_NAME}"}
+ORG_NAME="dtomasi"
+REPO_NAME="git-ext"
+ARCHIVE_NAME_PREFIX=$REPO_NAME
 
 function getLatestVersion() {
   curl --silent "https://api.github.com/repos/${ORG_NAME}/${REPO_NAME}/releases/latest" |
@@ -18,7 +18,7 @@ echo "detected latest extension version is ${LATEST_VERSION}"
 
 echo "downloading extensions"
 DOWNLOAD_URL="https://github.com/${ORG_NAME}/${REPO_NAME}/releases/download/${LATEST_VERSION}/${ARCHIVE_NAME}"
-curl -L "${DOWNLOAD_URL}" > "/tmp/${ARCHIVE_NAME}"
+curl -sL "${DOWNLOAD_URL}" > "/tmp/${ARCHIVE_NAME}"
 mkdir -p "/tmp/${REPO_NAME}"
 (cd "/tmp/${REPO_NAME}" || exit; tar -xjf "/tmp/${ARCHIVE_NAME}" 'git-*')
 echo "installing extension to /usr/local/bin"
