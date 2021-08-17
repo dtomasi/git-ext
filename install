@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+INSTALL_PATH=${1:-"/usr/bin/local"}
 ORG_NAME="dtomasi"
 REPO_NAME="git-ext"
 ARCHIVE_NAME_PREFIX=$REPO_NAME
@@ -18,9 +19,9 @@ echo "detected latest extension version is ${LATEST_VERSION}"
 
 echo "downloading extensions"
 DOWNLOAD_URL="https://github.com/${ORG_NAME}/${REPO_NAME}/releases/download/${LATEST_VERSION}/${ARCHIVE_NAME}"
-curl -sL "${DOWNLOAD_URL}" > "/tmp/${ARCHIVE_NAME}"
+curl -L "${DOWNLOAD_URL}" > "/tmp/${ARCHIVE_NAME}"
 mkdir -p "/tmp/${REPO_NAME}"
 (cd "/tmp/${REPO_NAME}" || exit; tar -xjf "/tmp/${ARCHIVE_NAME}" 'git-*')
-echo "installing extension to /usr/local/bin"
-sudo cp -a "/tmp/${REPO_NAME}/." "/usr/local/bin/"
+echo "installing extension to ${INSTALL_PATH}"
+sudo cp -a "/tmp/${REPO_NAME}/." "${INSTALL_PATH}/"
 rm -rf "/tmp/${REPO_NAME}" "/tmp/${ARCHIVE_NAME}"

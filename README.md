@@ -6,6 +6,10 @@ git-ext contains some useful git extensions
 
     curl https://raw.githubusercontent.com/dtomasi/git-ext/main/install | bash
 
+This installs all git extensions by default to `/usr/bin/local`. If you like to change destination path use this one:
+
+    curl https://raw.githubusercontent.com/dtomasi/git-ext/main/install | bash "/bin"
+
 ## git dirclone
 
 The dirclone extension clones git repositories to a given root directory using the URL path as a directory structure.
