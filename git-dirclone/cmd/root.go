@@ -5,6 +5,7 @@ import (
 	"github.com/whilp/git-urls"
 	"os"
 	"os/exec"
+	"os/user"
 	"path"
 	"path/filepath"
 	"strings"
@@ -27,7 +28,7 @@ func newRootCmd() *cobra.Command {
 				return err
 			}
 
-			rootDir, err = filepath.Abs(rootDir)
+			rootDir, err = expandPathWithTilde(rootDir)
 			if err != nil {
 				return err
 			}
@@ -53,4 +54,25 @@ func newRootCmd() *cobra.Command {
 // This is called by main.main(). It only needs to happen once to the rootCmd.
 func Execute() {
 	cobra.CheckErr(rootCmd.Execute())
+}
+
+func expandPathWithTilde(rootDir string) (string, error) {
+
+	usr, err := user.Current()
+	if err != nil {
+		return "", err
+	}
+
+	dir := usr.HomeDir
+
+	if rootDir == "~" {
+		// In case of "~", which won't be caught by the "else if"
+		rootDir = dir
+	} else if strings.HasPrefix(rootDir, "~/") {
+		// Use strings.HasPrefix so we don't match paths like
+		// "/something/~/something/"
+		rootDir = filepath.Join(dir, rootDir[2:])
+	}
+
+	return rootDir, nil
 }
