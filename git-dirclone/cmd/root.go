@@ -6,6 +6,7 @@ import (
 	"os"
 	"os/exec"
 	"path"
+	"path/filepath"
 	"strings"
 )
 
@@ -22,6 +23,11 @@ func newRootCmd() *cobra.Command {
 		RunE: func(cmd *cobra.Command, args []string) error {
 
 			rootDir, err := cmd.PersistentFlags().GetString("root")
+			if err != nil {
+				return err
+			}
+
+			rootDir, err = filepath.Abs(rootDir)
 			if err != nil {
 				return err
 			}
