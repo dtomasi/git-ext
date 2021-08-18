@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-INSTALL_PATH=${1:-"/usr/bin/local"}
+INSTALL_PATH=${1:-"/usr/local/bin"}
 ORG_NAME="dtomasi"
 REPO_NAME="git-ext"
 ARCHIVE_NAME_PREFIX=$REPO_NAME
