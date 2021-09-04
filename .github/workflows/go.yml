@@ -1,14 +1,8 @@
 name: Go Test
 
-on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
-  
+on: [push, pull_request]
 
 jobs:
-
   build:
     name: Build
     runs-on: ubuntu-latest

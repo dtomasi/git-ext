@@ -38,7 +38,7 @@ func newRootCmd() *cobra.Command {
 				return err
 			}
 
-			gitCmd := exec.Command("git", "clone", args[0], path.Join(rootDir, urlObj.Host, strings.TrimRight(urlObj.Path, ".git")))
+			gitCmd := exec.Command("git", "clone", args[0], path.Join(rootDir, urlObj.Host, strings.TrimSuffix(urlObj.Path, ".git")))
 			gitCmd.Stdout = os.Stdout
 			gitCmd.Stderr = os.Stderr
 			return gitCmd.Run()
